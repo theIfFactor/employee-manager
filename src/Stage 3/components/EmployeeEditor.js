@@ -11,9 +11,27 @@ class EmployeeEditor extends Component {
   }
 
   // componentWillReceiveProps
-
+  componentWillReceiveProps(props){
+    this.setState({
+      employee: props.selected,
+      originalEmployee: props.selected,
+      notModified: true
+    })
+  }
   // handleChange
+  handleChange(key, value){
+    if(this.state.notModified){
+      this.setState({
+        notModified: false
+      })
+    }
+    var tempEmployee = Object.assign({}, this.state.employee);
+    tempEmployee[key] = value;
 
+    this.setState({
+      employee: tempEmployee
+    });
+  }
   save() {
     this.state.originalEmployee.updateName(this.state.employee.name);
     this.state.originalEmployee.updatePhone(this.state.employee.phone);
